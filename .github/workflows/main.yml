@@ -30,6 +30,9 @@ jobs:
       - name: Run POSTMAN collection
         run: |
         #   newman run petstore.collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme --suppress-exit-code
+      # To List the Content
+      - name: List Test Results
+        run: ls -la testResults
 
       # Upload the contents of Test Results directory to workspace
       - name: Output the run Details
