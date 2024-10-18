@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: "20.x" # Updated to Node.js 20.x as recommended
 
-          # Make directory to upload the test results
+      # Make directory to upload the test results
       - name: Make Directory for results
         run: mkdir -p testResults
 
@@ -29,7 +29,7 @@ jobs:
       # Run the POSTMAN collection
       - name: Run POSTMAN collection
         run: |
-        #   newman run petstore.collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme 
+           newman run petstore.collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme 
         
       # To List the Content
       - name: List Test Results
