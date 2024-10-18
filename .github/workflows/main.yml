@@ -7,36 +7,38 @@ jobs:
   test-api:
     runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Check out the repository
       - uses: actions/checkout@v3
 
-      # Install Node on the runner
+      # Install Node.js on the runner
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: "20.x" # Updated to Node.js 20.x as recommended
+          node-version: "20.x"
 
-          # Make directory to upload the test results
-      - name: Make Directory for results
+      # Create the testResults directory
+      - name: Create Directory for results
         run: mkdir -p testResults
+        shell: sh
 
-      # Install the newman command line utility and also install the html extra reporter
-      - name: Install newman
-        run: |
-          npm install -g newman
-          npm install -g newman-reporter-htmlextra
+      # Install newman and dashboard reporter using shell
+      - name: Install newman and dashboard reporter
+        run: npm install -g newman newman-reporter-dashboard
+        shell: sh
 
-      # Run the POSTMAN collection
+      # Run the POSTMAN collection using the dashboard reporter with shell
       - name: Run POSTMAN collection
         run: |
-        #   newman run petstore.collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme > testResults/runreport1.html
-        
-      # To List the Content
-      - name: List Test Results
-        run: ls -la testResults
+          newman run petstore.collection.json -r dashboard --reporter-dashboard-export testResults/dashboard.html --suppress-exit-code
+        shell: sh
 
-      # Upload the contents of Test Results directory to workspace
-      - name: Output the run Details
+      # List contents of the testResults directory to check if files are generated
+      - name: List Test Results Directory
+        run: ls -la testResults
+        shell: sh
+
+      # Upload the contents of testResults directory as artifacts
+      - name: Upload Run Reports
         uses: actions/upload-artifact@v4
         with:
           name: RunReports
