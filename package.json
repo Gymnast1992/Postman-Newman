@@ -3,12 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "tern-on-api": "cp mockApi/db_back_up.yaml mockApi/db_stage.yaml && npx yaml-server --hotReload=off --autoStart=off --port 3000 --database ./mockApi/db_stage.yaml"
+    "tern-on-api": "cp mockApi/db_back_up.yaml mockApi/db_stage.yaml && npx yaml-server --hotReload=off --autoStart=off --port 3000 --database ./mockApi/db_stage.yaml",
+    "test": "mkdir -p testResults && newman run petstore.collection.json --reporters dashboard --reporter-dashboard-export testResults/dashboard-report.html"
   },
-  "keywords": ["api","mock","yaml-server","rest"],
+  "keywords": [
+    "api",
+    "mock",
+    "yaml-server",
+    "rest"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "newman": "^5.3.2",
+    "newman-reporter-dashboard": "^1.0.1",
     "yaml-server": "^1.10.0"
   }
 }
